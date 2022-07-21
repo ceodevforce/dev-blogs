@@ -1,0 +1,64 @@
+ interface IUser {
+        id: ID!
+        firstName: String
+        lastName: String
+        email: String
+        
+    }
+
+
+    input IUserInput {
+        firstName: String
+        lastName: String
+        email: String
+        password: String
+    }
+
+    type Query {
+        getBlogPost(id: ID!): BlogQuery!
+        blogs(query: String): [BlogQuery!]!
+        comments: [CommentQuery]
+        blog(query: String): [BlogQuery!]!
+        authors(query: String): [AuthorQuery!]!
+        author(id: ID!): AuthorQuery
+        comment(id: ID!): CommentQuery
+    }
+
+    type Mutation {
+        createUser(firstName: String, lastName: String, email: String, password: String): User!
+        createBlog(title: String!, preview: String!, content: String!, author: ID!): BlogQuery!
+        createComment(content: String!, author: ID!, blog: ID!, rating: Int!): CommentQuery!
+
+    }
+
+    type BlogQuery {
+        id: ID!
+        title: String!
+        preview: String
+        content: String
+        author: AuthorQuery
+        comments: [CommentQuery!]!
+    }
+
+    type AuthorQuery {
+        id: ID
+        name: String
+        blogs: [BlogQuery!]!
+    }
+
+    type CommentQuery {
+        id: ID!
+        content: String
+        author: AuthorQuery
+        blog: BlogQuery
+        rating: Int
+    }
+
+    type User {
+        id: ID!
+        firstName: String
+        lastName: String
+        email: String
+         
+    }
+    
